@@ -18,11 +18,11 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "migration:run": "node migrate.js migrate",
-    "migration:info": "node migrate.js info",
-    "migration:validate": "node migrate.js validate",
-    "migration:clean": "node migrate.js clean",
-    "migration:baseline": "node migrate.js baseline"
+    "migration:run": "flyway -c flyway.config.js migrate",
+    "migration:info": "flyway -c flyway.config.js info",
+    "migration:validate": "flyway -c flyway.config.js validate",
+    "migration:clean": "flyway -c flyway.config.js clean",
+    "migration:baseline": "flyway -c flyway.config.js baseline"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
