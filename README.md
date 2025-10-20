@@ -27,7 +27,7 @@ Create a `.env` file with your Supabase credentials:
 SUPABASE_PASSWORD=your-supabase-password
 SUPABASE_URL=your-supabase-url
 SUPABASE_KEY=your-supabase-anon-key
-PORT=3000
+PORT=8080
 NODE_ENV=development
 ```
 

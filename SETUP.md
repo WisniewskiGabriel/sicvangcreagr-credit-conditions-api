@@ -101,7 +101,7 @@ Required environment variables:
 - `SUPABASE_PASSWORD` - Your Supabase database password
 - `SUPABASE_URL` - Your Supabase project URL
 - `SUPABASE_KEY` - Your Supabase anon key
-- `PORT` - Application port (default: 3000)
+- `PORT` - Application port (default: 8080)
 - `NODE_ENV` - Environment (default: development)
 
 ## Database Schema
