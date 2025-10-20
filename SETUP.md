@@ -11,15 +11,14 @@ This project has been set up as a NestJS API with Flyway database migrations for
 - **TypeScript**: v5.7.3
 
 ### Database
-- **TypeORM**: v0.3.x for ORM functionality
-- **PostgreSQL**: Primary database (via pg driver)
+- **Supabase**: PostgreSQL cloud database
 - **Flyway**: v10.21.0 for database migrations (via node-flywaydb wrapper)
 
 ### Development Tools
 - **ESLint**: v9.18.0 with TypeScript support
 - **Prettier**: v3.4.2 for code formatting
 - **Jest**: v30.0.0 for testing
-- **Docker Compose**: For local PostgreSQL setup
+
 
 ## Project Structure
 
@@ -86,30 +85,22 @@ This project has been set up as a NestJS API with Flyway database migrations for
    # Edit .env with your database credentials
    ```
 
-3. **Start PostgreSQL database**
-   ```bash
-   docker-compose up -d
-   ```
-
-4. **Run database migrations**
+3. **Run database migrations**
    ```bash
    npm run migration:run
    ```
 
-5. **Start development server**
+4. **Start development server**
    ```bash
    npm run start:dev
    ```
 
 ## Environment Variables
 
-Required environment variables (see .env.example):
-- `DATABASE_HOST` - PostgreSQL host (default: localhost)
-- `DATABASE_PORT` - PostgreSQL port (default: 5432)
-- `DATABASE_USER` - Database user (default: postgres)
-- `DATABASE_PASSWORD` - Database password (default: postgres)
-- `DATABASE_NAME` - Database name (default: credit_conditions)
-- `DATABASE_URL` - JDBC URL for Flyway (default: jdbc:postgresql://localhost:5432/credit_conditions)
+Required environment variables:
+- `SUPABASE_PASSWORD` - Your Supabase database password
+- `SUPABASE_URL` - Your Supabase project URL
+- `SUPABASE_KEY` - Your Supabase anon key
 - `PORT` - Application port (default: 3000)
 - `NODE_ENV` - Environment (default: development)
 
@@ -129,11 +120,10 @@ The initial migration (V1__Initial_schema.sql) creates:
 
 ## Key Configuration Details
 
-### TypeORM Configuration
-- Located in `src/app.module.ts`
-- Uses environment variables for connection
-- `synchronize: false` - Schema managed by Flyway only
-- Entities array ready for entity additions
+### Database Configuration
+- Supabase PostgreSQL cloud database
+- Connection configured via Flyway for migrations
+- No ORM - direct SQL queries as needed
 
 ### Flyway Configuration
 - Located in `flyway.config.js`

@@ -1,11 +1,11 @@
 // Flyway configuration for node-flywaydb CLI wrapper
 module.exports = {
   flywayArgs: {
-    url: process.env.DATABASE_URL || 'jdbc:postgresql://localhost:5432/credit_conditions',
+    url: 'jdbc:postgresql://db.sgjnlhmzhqyydnstwzki.supabase.co:5432/postgres',
     schemas: 'public',
     locations: 'filesystem:db/migrations',
-    user: process.env.DATABASE_USER || 'postgres',
-    password: process.env.DATABASE_PASSWORD || 'postgres',
+    user: 'postgres',
+    password: process.env.SUPABASE_PASSWORD || '',
     sqlMigrationSuffixes: '.sql',
     baselineOnMigrate: true,
     validateOnMigrate: true,

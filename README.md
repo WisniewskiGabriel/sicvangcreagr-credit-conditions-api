@@ -6,7 +6,7 @@ A NestJS API for managing credit conditions with Flyway database migrations.
 
 - Node.js (v20 or higher)
 - npm (v10 or higher)
-- PostgreSQL database
+- Supabase account and project
 
 ## Installation
 
@@ -22,37 +22,22 @@ npm install
 ```
 
 3. Configure environment variables:
-```bash
-cp .env.example .env
+Create a `.env` file with your Supabase credentials:
 ```
-
-Edit the `.env` file with your database credentials:
-```
-DATABASE_HOST=localhost
-DATABASE_PORT=5432
-DATABASE_USER=postgres
-DATABASE_PASSWORD=postgres
-DATABASE_NAME=credit_conditions
+SUPABASE_PASSWORD=your-supabase-password
+SUPABASE_URL=your-supabase-url
+SUPABASE_KEY=your-supabase-anon-key
+PORT=3000
+NODE_ENV=development
 ```
 
 ## Database Setup
 
-### Using Docker (Recommended for Development)
+### Using Supabase Cloud
 
-Start PostgreSQL using Docker Compose:
-```bash
-docker-compose up -d
-```
-
-Stop PostgreSQL:
-```bash
-docker-compose down
-```
-
-Stop and remove all data:
-```bash
-docker-compose down -v
-```
+This project is configured to use Supabase PostgreSQL cloud database. Make sure you have:
+1. Created a Supabase project
+2. Added your database credentials to the `.env` file
 
 ### Running Migrations
 
@@ -147,8 +132,7 @@ npm run lint
 ## Technology Stack
 
 - **NestJS** (v11) - Progressive Node.js framework
-- **TypeORM** - ORM for TypeScript and JavaScript
-- **PostgreSQL** - Relational database
+- **Supabase** - PostgreSQL cloud database
 - **Flyway** - Database migration tool
 - **Jest** - Testing framework
 - **ESLint** - Code linting
