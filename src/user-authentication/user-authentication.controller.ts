@@ -6,6 +6,10 @@ class LoginDto {
   password: string;
 }
 
+class RefreshTokenDto {
+  refreshToken: string;
+}
+
 @Controller('user-authentication')
 export class UserAuthenticationController {
   constructor(
@@ -20,5 +24,15 @@ export class UserAuthenticationController {
     expires_in: number;
   }> {
     return this.userAuthenticationService.login(body.email, body.password);
+  }
+
+
+  @Post('refresh-token')
+  async refreshToken(@Body() body: RefreshTokenDto): Promise<{
+    access_token: string;
+    refresh_token: string;
+    expires_in: number;
+  }> {
+    return this.userAuthenticationService.refreshToken(body.refreshToken);
   }
 }
