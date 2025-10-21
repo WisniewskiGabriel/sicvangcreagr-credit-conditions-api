@@ -5,6 +5,7 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const baseUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT ?? 8080}`;
 
   // Enable CORS for localhost:3000
   app.enableCors({
@@ -42,8 +43,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(process.env.PORT ?? 3001);
-  console.log(`Application is running on: http://localhost:${process.env.PORT ?? 3001}`);
-  console.log(`Swagger documentation available at: http://localhost:${process.env.PORT ?? 3001}/api`);
+  await app.listen(process.env.PORT ?? 8080);
+  console.log(`Application is running on: ${baseUrl}`);
+  console.log(`Swagger documentation available at: ${baseUrl}/api`);
 }
 void bootstrap();
