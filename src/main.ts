@@ -41,11 +41,12 @@ async function bootstrap() {
     transform: true,
   }));
 
-  // Swagger configuration
+  // Swagger configuration - Always enabled
   const config = new DocumentBuilder()
     .setTitle('Credit Conditions API')
     .setDescription('NestJS API for managing credit conditions with user authentication')
     .setVersion('1.0')
+    .addServer(baseUrl, 'API Server')
     .addBearerAuth(
       {
         type: 'http',
@@ -60,10 +61,26 @@ async function bootstrap() {
     .build();
   
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  
+  // Setup Swagger UI
+  SwaggerModule.setup('api', app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+    customSiteTitle: 'Credit Conditions API Documentation',
+    customCss: '.swagger-ui .topbar { display: none }',
+  });
 
-  await app.listen(process.env.PORT ?? 8080);
+  // Also make the JSON available at /api-json for debugging
+  app.getHttpAdapter().get('/api-json', (req, res) => {
+    res.json(document);
+  });
+
+  const port = process.env.PORT ?? 8080;
+  await app.listen(port);
   console.log(`Application is running on: ${baseUrl}`);
   console.log(`Swagger documentation available at: ${baseUrl}/api`);
+  console.log(`Environment: ${process.env.NODE_ENV}`);
+  console.log(`Port: ${port}`);
 }
 void bootstrap();

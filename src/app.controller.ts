@@ -23,4 +23,32 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+
+  @Get('debug')
+  @ApiOperation({ 
+    summary: 'Debug info', 
+    description: 'Get debug information about the environment' 
+  })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Debug information',
+    schema: {
+      type: 'object',
+      properties: {
+        environment: { type: 'string' },
+        port: { type: 'string' },
+        baseUrl: { type: 'string' },
+        timestamp: { type: 'string' }
+      }
+    }
+  })
+  getDebugInfo() {
+    return {
+      environment: process.env.NODE_ENV || 'development',
+      port: process.env.PORT || '8080',
+      baseUrl: process.env.BASE_URL || 'http://localhost:8080',
+      timestamp: new Date().toISOString(),
+      swagger: 'enabled'
+    };
+  }
 }
