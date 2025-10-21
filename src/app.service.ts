@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class AppService {
   getHello(): string {
+    const baseUrl = process.env.BASE_URL || 'http://localhost:8080';
     return `
       <!DOCTYPE html>
       <html lang="en">
@@ -23,7 +24,7 @@ export class AppService {
           <p>This API provides credit condition services for SicVanCreAgr.</p>
           <p>
             <strong>Swagger documentation:</strong>
-            <a href="http://localhost:8080/api" target="_blank">http://localhost:8080/api</a>
+            <a href="${baseUrl}/api" target="_blank">${baseUrl}/api</a>
           </p>
         </div>
       </body>

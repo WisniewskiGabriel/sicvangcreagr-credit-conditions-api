@@ -5,10 +5,30 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const baseUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT ?? 8080}`;
 
-  // Enable CORS for localhost:3000
+  // Enable CORS with dynamic origin handling
   app.enableCors({
-    origin: 'http://localhost:3000',
+    origin: (origin, callback) => {
+      const allowedOrigins = [
+        'https://sicvangcreagr-credit-conditions-simulator-nqoxgjqfn.vercel.app',
+      ];
+
+      // Allow localhost origins in development
+      if (process.env.NODE_ENV === 'development') {
+        allowedOrigins.push('http://localhost:3000', 'http://localhost:3001', 'http://127.0.0.1:3000');
+      }
+
+      // Check for Vercel preview deployments (wildcard pattern)
+      const vercelPattern = /^https:\/\/sicvangcreagr-credit-conditions-simulator-.+\.vercel\.app$/;
+      
+      // Allow if origin matches any allowed origin or Vercel pattern
+      if (!origin || allowedOrigins.includes(origin) || vercelPattern.test(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
@@ -42,8 +62,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(process.env.PORT ?? 3001);
-  console.log(`Application is running on: http://localhost:${process.env.PORT ?? 3001}`);
-  console.log(`Swagger documentation available at: http://localhost:${process.env.PORT ?? 3001}/api`);
+  await app.listen(process.env.PORT ?? 8080);
+  console.log(`Application is running on: ${baseUrl}`);
+  console.log(`Swagger documentation available at: ${baseUrl}/api`);
 }
 void bootstrap();
