@@ -11,7 +11,7 @@ async function bootstrap() {
   app.enableCors({
     origin: (origin, callback) => {
       const allowedOrigins = [
-        'https://sicvangcreagr-credit-conditions-simulator-nqoxgjqfn.vercel.app',
+        'https://sicvangcreagr-credit-conditions-sim.vercel.app',
       ];
 
       // Allow localhost origins in development
